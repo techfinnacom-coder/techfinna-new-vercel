@@ -1,0 +1,10 @@
+User-Agent: *
+Disallow: /private/
+Disallow: /junk/
+Disallow: /admin/
+Disallow: /admin
+
+
+
+# Sitemap for the main domain
+Sitemap: https://techfinna.com/sitemap.xml

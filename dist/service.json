@@ -1,0 +1,24 @@
+[
+    {
+      "id": "1",
+      "icon": "images/discord-mark-blue.png",
+      "title": "Custom Discord Bots",
+      "description": "Powerful automation and enhanced communication tailored to your Discord community.",
+      "href": "/service#customBot"
+    },
+    {
+      "id": "2",
+      "icon": "images/web-design.png",
+      "title": "Professional Website Design",
+      "description": "Visually stunning websites that captivate your audience and drive online success.",
+      "href": "/service#webService"
+    },
+    {
+      "id": "3",
+      "icon": "images/bot.png",
+      "title": "Seamless Odo and Discord Integration",
+      "description": "Streamline operations, automate workflows, and boost collaboration between Odo and Discord.",
+      "href": "/service#softService"
+    }
+  ]
+  
