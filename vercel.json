@@ -1,4 +1,7 @@
 {
   "cleanUrls": false,
-  "trailingSlash": false
+  "trailingSlash": false,
+   "rewrites": [
+    { "source": "/excel_connector/:path*.html", "destination": "/excel_connector/:path*" }
+  ]
 }
