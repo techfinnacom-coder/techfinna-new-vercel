@@ -87,3 +87,13 @@ export async function POST(request: Request) {
   }
 }
 
+
+
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    message: "Hello from Vercel API route ✅",
+    timestamp: new Date().toISOString(),
+  });
+}
+
