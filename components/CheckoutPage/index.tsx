@@ -1,9 +1,6 @@
 "use client";
 
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import {
   useStripe,
   useElements,
@@ -14,106 +11,68 @@ import convertToSubcurrency from "@/lib/convertToSubcurrency";
 const CheckoutPage = ({
   amount,
   productName,
+  clientSecret,
+  prodVersion,
+  productHref,
 }: {
   amount: number;
   productName: string;
+  clientSecret: string;
+  prodVersion: string;
+  productHref:string
 }) => {
   const stripe = useStripe();
   const elements = useElements();
-  const [errorMessage, setErrorMessage] =
-    useState<string>();
-  const [clientSecret, setClientSecret] =
-    useState("");
+  const [errorMessage, setErrorMessage] = useState<string>();
+  // const [clientSecret, setClientSecret] =
+  //   useState("");
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
-  const [companyName, setCompanyName] =
-    useState("");
+  const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [version, setVersion] = useState("12");
-  const [prodName, setProdName] =
-    useState(productName);
+  const [prodName, setProdName] = useState(productName);
 
-  const handleSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
+ 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
+    if (!stripe || !elements) {
+      setLoading(false);
+      return;
+    }
 
-    await fetch(
-      "https://paymentintent-4ghlaskdba-uc.a.run.app",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: convertToSubcurrency(amount),
-          currency: "usd",
-          productId: "prod_QPhnXSpPf4uUka",
-          prodName: prodName,
-          prodVersion: version,
-          name: name,
-          email: email,
-          companyName: companyName,
-        }),
+    try {
+      const { error: submitError } = await elements.submit();
+
+      if (submitError) {
+        setErrorMessage(submitError.message);
+        setLoading(false);
+        return;
       }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        var secretKey = data.clientSecret;
-        setClientSecret(data.clientSecret);
-        console.log(
-          data,
-          "response after stripe intent"
-        );
 
-        async function sendPayment(
-          secretKey: any
-        ) {
-          if (!stripe || !elements) {
-            return;
-          }
-
-          const { error: submitError } =
-            await elements.submit();
-
-          if (submitError) {
-            setErrorMessage(submitError.message);
-            setLoading(false);
-            return;
-          }
-
-          const { error } =
-            await stripe.confirmPayment({
-              elements,
-              clientSecret: secretKey,
-              confirmParams: {
-                payment_method_data: {
-                  billing_details: {
-                    name: name,
-                    email: email,
-                  },
-                },
-                return_url: `https://techfinna.com/payment-success/`,
-              },
-            });
-          console.log(
-            error,
-            "error checking after payment"
-          );
-          if (error) {
-            // This point is only reached if there's an immediate error when
-            // confirming the payment. Show the error to your customer (for example, payment details incomplete)
-            setErrorMessage(error.message);
-          } else {
-            // The payment UI automatically closes with a success animation.
-            // Your customer is redirected to your `return_url`.
-          }
-        }
-        sendPayment(secretKey);
+      const { error } = await stripe.confirmPayment({
+        elements,
+        clientSecret: clientSecret,
+        confirmParams: {
+          payment_method_data: {
+            billing_details: {
+              name: name,
+              email: email,
+            },
+          },
+          return_url: `https://techfinna.com/payment-success/`,
+        },
       });
 
-    setLoading(true);
+      if (error) {
+        setErrorMessage(error.message);
+      }
+    } catch (e: any) {
+      setErrorMessage(e?.message || "Payment failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!stripe || !elements) {
@@ -133,10 +92,7 @@ const CheckoutPage = ({
 
   return (
     <div className="w-full md:w-[75%] px-8">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-100 p-2 rounded-md"
-      >
+      <form onSubmit={handleSubmit} className="bg-gray-100 p-2 rounded-md">
         {stripe && (
           <div className="space-y-2">
             <div className=" pb-4">
@@ -153,9 +109,7 @@ const CheckoutPage = ({
                       required
                       type="email"
                       value={email}
-                      onChange={(e) =>
-                        setEmail(e.target.value)
-                      }
+                      onChange={(e) => setEmail(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -188,9 +142,7 @@ const CheckoutPage = ({
                       name="first-name"
                       id="first-name"
                       onChange={(e) => {
-                        setCompanyName(
-                          e.target.value
-                        );
+                        setCompanyName(e.target.value);
                       }}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -206,35 +158,17 @@ const CheckoutPage = ({
                       name="version"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600  sm:text-sm sm:leading-6"
                       onChange={(e) => {
-                        setVersion(
-                          e.target.value
-                        );
+                        setVersion(e.target.value);
                       }}
                     >
-                      <option value={12.0}>
-                        12.0
-                      </option>
-                      <option value={13.0}>
-                        13.0
-                      </option>
-                      <option value={14.0}>
-                        14.0
-                      </option>
-                      <option value={15.0}>
-                        15.0
-                      </option>
-                      <option value={16.0}>
-                        16.0
-                      </option>
-                      <option value={17.0}>
-                        17.0
-                      </option>
-                      <option value={18.0}>
-                        18.0
-                      </option>
-                         <option value={19.0}>
-                        19.0
-                      </option>
+                      <option value={12.0}>12.0</option>
+                      <option value={13.0}>13.0</option>
+                      <option value={14.0}>14.0</option>
+                      <option value={15.0}>15.0</option>
+                      <option value={16.0}>16.0</option>
+                      <option value={17.0}>17.0</option>
+                      <option value={18.0}>18.0</option>
+                      <option value={19.0}>19.0</option>
                     </select>
                   </div>
                 </div>
@@ -244,15 +178,11 @@ const CheckoutPage = ({
         )}
         {stripe && <PaymentElement />}
 
-        {errorMessage && (
-          <div>{errorMessage}</div>
-        )}
+        {errorMessage && <div>{errorMessage}</div>}
 
         <div className="flex flex-col gap-2 justify-center items-center">
           <div className="flex justify-center items-center gap-3 my-4">
-            <p className="text-black">
-              Secure Checkout
-            </p>
+            <p className="text-black">Secure Checkout</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="15px"
@@ -274,9 +204,7 @@ const CheckoutPage = ({
           disabled={!stripe || loading}
           className="text-white w-1/2 mt-4 p-5 bg-black mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse"
         >
-          {!loading
-            ? `Pay $${amount}`
-            : "Processing..."}
+          {!loading ? `Pay $${amount}` : "Processing..."}
         </button>
       </form>
     </div>
