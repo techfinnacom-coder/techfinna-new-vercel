@@ -16,8 +16,14 @@ import "swiper/css/navigation"; // Import the navigation styles
 // Import required modules
 import { FreeMode, Pagination, Navigation, Autoplay } from "swiper/modules";
 
+// Test key
+// const stripePromise = loadStripe(
+//   `${process.env.NEXT_PUBLIC_TEST_STRIPE_PUBLISHABLE_KEY}`
+// );
+
+// Live key
 const stripePromise = loadStripe(
-  "i"
+  `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
 );
 
 const Bigquery = () => {

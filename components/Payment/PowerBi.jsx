@@ -1,7 +1,8 @@
 "use client";
-
+import CheckoutPage from "@/components/CheckoutPage";
 import convertToSubcurrency from "@/lib/convertToSubcurrency";
-import StripeCheckoutWrapper from "@/components/StripeCheckoutWrapper";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import products from "../../data/products.json";
 
 // import "../../removeHeader.css";
@@ -16,7 +17,15 @@ import "swiper/css/navigation"; // Import the navigation styles
 // Import required modules
 import { FreeMode, Navigation, Autoplay } from "swiper/modules";
 
+// Test key
+const stripePromise = loadStripe(
+  `${process.env.NEXT_PUBLIC_TEST_STRIPE_PUBLISHABLE_KEY}`
+);
 
+// Live key
+// const stripePromise = loadStripe(
+//   `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
+// );
 const PowerBI = () => {
   const currentProduct = products.filter(
     (obj) => obj.href == "/odoo-powerbi-connector/"
@@ -216,13 +225,19 @@ const PowerBI = () => {
           />
           <h2 className="text-black">TECHFINNA</h2>
         </a> */}
-       <StripeCheckoutWrapper
-  amount={amount}
-  productName="powerbi_desktop_connector"
-  prodVersion="12"
-  href="/odoo-powerbi-connector/"
-/>
-
+        <Elements
+          stripe={stripePromise}
+          options={{
+            mode: "payment",
+            amount: convertToSubcurrency(amount),
+            currency: "usd",
+          }}
+        >
+          <CheckoutPage
+            amount={amount}
+            productName={`powerbi_desktop_connector`}
+          />
+        </Elements>
       </div>
     </div>
   );

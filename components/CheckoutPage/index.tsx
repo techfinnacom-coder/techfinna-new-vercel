@@ -33,7 +33,6 @@ const CheckoutPage = ({
   const [version, setVersion] = useState("12");
   const [prodName, setProdName] = useState(productName);
 
- 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
