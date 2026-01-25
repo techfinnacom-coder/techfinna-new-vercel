@@ -18,14 +18,14 @@ import "swiper/css/navigation"; // Import the navigation styles
 import { FreeMode, Navigation, Autoplay } from "swiper/modules";
 
 // Test key
-const stripePromise = loadStripe(
-  `${process.env.NEXT_PUBLIC_TEST_STRIPE_PUBLISHABLE_KEY}`
-);
+// const stripePromise = loadStripe(
+//   `${process.env.NEXT_PUBLIC_TEST_STRIPE_PUBLISHABLE_KEY}`
+// );
 
 // Live key
-// const stripePromise = loadStripe(
-//   `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
-// );
+const stripePromise = loadStripe(
+  `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
+);
 const PowerBI = () => {
   const currentProduct = products.filter(
     (obj) => obj.href == "/odoo-powerbi-connector/"
