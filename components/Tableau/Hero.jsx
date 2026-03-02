@@ -1,6 +1,14 @@
+"use client";
+import Link from "next/link";
 import React from "react";
 
-const Hero = ({ amount }) => {
+const Hero = ({ amount, rating = 0, reviewCount = 0 }) => {
+  const scrollToReviews = (e) => {
+    if (e?.preventDefault) e.preventDefault();
+    const el = document.getElementById("reviews");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <div className="flex w-full justify-center items-center mt-10 md:mt-0">
       <div className="absolute hidden md:block w-full h-[500px] bg-gray-400 top-0 left-0 z-0"></div>
@@ -34,13 +42,10 @@ const Hero = ({ amount }) => {
               Odoo Tableau Direct Connector
             </h1>
             <p className="text-medium text-black mt-2 mb-4">
-              Connect Odoo with Tableau directly
-              with great ease.{" "}
+              Connect Odoo with Tableau directly with great ease.{" "}
             </p>
             <div className="flex justify-center items-center py-1">
-              <span className="font-semibold mr-4">
-                Odoo Versions:
-              </span>
+              <span className="font-semibold mr-4">Odoo Versions:</span>
               <div className="flex gap-1 flex-wrap text-black ml-[6px]">
                 <p className="text-sm bg-[#EDF2F7] rounded-sm px-2 border font-medium">
                   12.0
@@ -71,19 +76,11 @@ const Hero = ({ amount }) => {
               </div>
             </div>
             <div className="flex py-1">
-              <span className="font-semibold pr-2">
-                Validity:{" "}
-              </span>{" "}
-              Lifetime
+              <span className="font-semibold pr-2">Validity: </span> Lifetime
             </div>
             <div className="flex py-1">
-              <span className="font-semibold pr-2">
-                Product Copyright:{" "}
-              </span>{" "}
-              <a
-                className="underline font-gray-400 !font-light"
-                href="/about"
-              >
+              <span className="font-semibold pr-2">Product Copyright: </span>{" "}
+              <a className="underline font-gray-400 !font-light" href="/about">
                 TechFinna
               </a>
             </div>
@@ -113,42 +110,34 @@ const Hero = ({ amount }) => {
                   />
                 </g>
               </svg>
-              <span>
-                Connector Installation Guide
-              </span>
+              <span>Connector Installation Guide</span>
             </a>
           </div>
         </div>
         <div className="flex flex-col mt-6 md:mt-0 text-center justify-center items-center relative">
+          
           <div className=" p-8 z-[10] shadow-xl  bg-white rounded-xl w-full drop-shadow-lg flex flex-col justify-center items-center gap-2">
-            <div className="flex justify-between w-full  border-b-2 border-gray-500 pb-4 gap-2 items-end">
-              <div className="mt-1 inline-flex items-center justify-end">
-                <div className="-mt-px mr-1.5 flex-shrink-0 text-base font-bold">
-                  4.9
+            <div className="flex justify-between w-full  border-b-2 border-gray-500 pb-4 gap-2 items-start">
+              <div className="flex items-center flex-col gap-1">
+                <div className="inline-flex items-center gap-2 rounded-xl bg-gray-100 px-3 py-2">
+                  <span className="text-lg font-extrabold">
+                    {Number(rating || 0).toFixed(1)}
+                  </span>
+                  <span className="text-yellow-500">★★★★★</span>
                 </div>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="15px"
-                  height="15px"
-                  viewBox="0 -0.5 32 32"
-                  fill="none"
-                >
-                  <path
-                    d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z"
-                    fill="#FFCB45"
-                  />
-                </svg>
-                <a
-                  href="#reviews"
-                  className="mx-3 flex-shrink-0 text-[0.8rem] font-medium text-gray-600"
-                >
-                  (2 ratings)
-                </a>
+                  {/* <span className="text-gray-400"> • </span> */}
+
+                <div className="text-sm text-gray-700">
+                  <span className="font-bold">{reviewCount}</span> {" "}
+                  <a href="#reviews" onClick={scrollToReviews} className="font-light hover:underline">
+                    Ratings &
+                  Reviews
+                    </a>
+                 
+                </div>
               </div>
               <p className="font-semibold text-3xl">
-                <span className="font-light text-lg px-2">
-                  USD
-                </span>
+                <span className="font-light text-lg px-2">USD</span>
                 {amount}
               </p>
             </div>
@@ -159,6 +148,10 @@ const Hero = ({ amount }) => {
                 <p>- Demo Video</p>
                 <p>- Free Installation Support</p>
                 <p>- Regular Feature Updates</p>
+                <div>
+
+                - <Link href={'/refund-policy'} className=" underline text-gray-600">Return & Refund Policy</Link>
+                </div>
               </div>
               <div className="flex mt-2 gap-2 justify-center border-b-2 pb-2 border-gray-600 items-center">
                 <a
@@ -172,10 +165,7 @@ const Hero = ({ amount }) => {
                   href="https://wa.me/916230927667"
                   className="border-2 border-green-800 rounded-lg"
                 >
-                  <img
-                    src="/images/chat-on-whatsapp.png"
-                    width={"200"}
-                  />
+                  <img src="/images/chat-on-whatsapp.png" width={"200"} />
                 </a>
               </div>
             </div>
@@ -257,7 +247,7 @@ const Hero = ({ amount }) => {
               </div>
             </div>
           </div>
-          
+
           {/* <div className="flex justify-center items-center flex-col mt-10 ">
             <h2 className="text-3xl md:text-2xl text-black mb-5">
               Watch Demo

@@ -1,6 +1,13 @@
+"use client"
+import Link from "next/link";
 import React from "react";
 
-const Hero = ({amount}) => {
+const Hero = ({amount, rating = 0, reviewCount = 0 }) => {
+   const scrollToReviews = (e) => {
+    if (e?.preventDefault) e.preventDefault();
+    const el = document.getElementById("reviews");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
   return (
     <div className="flex w-full justify-center items-center mt-10 md:mt-0">
       <div className="absolute hidden md:block w-full h-[500px] bg-gray-400 top-0 left-0 z-0"></div>
@@ -125,37 +132,80 @@ const Hero = ({amount}) => {
         <div className="flex flex-col mt-6 md:mt-0 text-center justify-center items-center lg:justify-end lg:items-end w-full lg:w-[40%] relative">
           <div className="flex flex-col justify-center items-center">
             <div className=" p-8 z-[10] shadow-xl flex flex-col  bg-white rounded-xl w-full max-w-[400px] drop-shadow-lg flex flex-col justify-center items-center gap-2">
-              <div className="flex  justify-between w-full  border-b-2 border-gray-500 pb-4 gap-2 items-end">
-                <div className="mt-1 inline-flex items-center justify-end">
-                  <div className="-mt-px mr-1.5 flex-shrink-0 text-base font-bold">
-                    4.8
+              <div className="flex justify-between w-full  border-b-2 border-gray-500 pb-4 gap-2 items-start">
+                  <div className="flex items-start flex-col gap-1">
+                    <div className="inline-flex items-center gap-2 rounded-xl bg-gray-100 px-3 py-2">
+                      <span className="text-lg font-extrabold">
+                        {Number(rating || 0).toFixed(1)}
+                      </span>
+                      <span className="text-yellow-500">★★★★★</span>
+                    </div>
+                    {/* <span className="text-gray-400"> • </span> */}
+
+                    <div className="text-sm text-gray-700">
+                      <span className="font-bold">{reviewCount}</span>{" "}
+                      <a
+                        href="#reviews"
+                        onClick={scrollToReviews}
+                        className="font-light hover:underline"
+                      >
+                        Ratings & Reviews
+                      </a>
+                    </div>
                   </div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="15px"
-                    height="15px"
-                    viewBox="0 -0.5 32 32"
-                    fill="none"
-                  >
-                    <path
-                      d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z"
-                      fill="#FFCB45"
-                    />
-                  </svg>
-                  <a
-                    href="#reviews"
-                    className="mx-3 flex-shrink-0 text-[0.8rem] font-medium text-gray-600"
-                  >
-                    (17 ratings)
-                  </a>
+                  <div className="flex flex-col justify-end items-end">
+                    <p className="font-semibold text-3xl">
+                      <span className="font-light text-lg px-2">USD</span>
+                      {amount}
+                    </p>
+                    <div className=" flex items-center justify-end gap-2 py-2 px-3 rounded-xl bg-slate-100 w-fit">
+                      <span className="inline-flex items-center justify-center h-4 w-4  text-indigo-700">
+                        {/* Cart Icon */}
+                        <svg
+                          className="h-5 w-5"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M6 6H21L20 12H7L6 6Z"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M6 6L5 3H2"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M7 12L6.5 14.5C6.3 15.6 7.1 16.6 8.2 16.6H19"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M9 20C9.55228 20 10 19.5523 10 19C10 18.4477 9.55228 18 9 18C8.44772 18 8 18.4477 8 19C8 19.5523 8.44772 20 9 20Z"
+                            fill="currentColor"
+                          />
+                          <path
+                            d="M18 20C18.5523 20 19 19.5523 19 19C19 18.4477 18.5523 18 18 18C17.4477 18 17 18.4477 17 19C17 19.5523 17.4477 20 18 20Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+
+                      <p className="text-sm text-gray-700">
+                        <span className="font-extrabold text-gray-900">19</span>{" "}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <p className="font-semibold text-3xl">
-                  <span className="font-light text-lg px-2">
-                    USD
-                  </span>
-                  {amount}
-                </p>
-              </div>
               <div className="flex flex-col ">
                 <p className="text-neutral-800">
                   Bought basic connector already?
@@ -284,6 +334,14 @@ const Hero = ({amount}) => {
                     Odoo Expert help within 24 hrs
                   </p>
                 </div>
+              </div>
+               <div>
+                <Link
+                  href={"/refund-policy"}
+                  className=" underline text-gray-600"
+                >
+                  Return & Refund Policy
+                </Link>
               </div>
               <a
                 href="/payment/odoo-powerbi-advance-connector/"

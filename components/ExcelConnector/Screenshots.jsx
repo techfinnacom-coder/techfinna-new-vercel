@@ -11,7 +11,7 @@ export default function Screenshots() {
           <img
             className="shadow-lg"
             src="/images/excel-connector/enter-url.png"
-            width="700px"
+            width="800px"
           />
         </div>
       ),
@@ -25,7 +25,7 @@ export default function Screenshots() {
           <img
             className="shadow-lg"
             src="/images/excel-connector/fetch-tables.png"
-            width="700px"
+            width="800px"
           />
         </div>
       ),
@@ -38,7 +38,7 @@ export default function Screenshots() {
           <img
             className="shadow-lg"
             src="/images/excel-connector/run-sql.png"
-            width="700px"
+            width="800px"
           />
         </div>
       ),
@@ -70,7 +70,7 @@ export default function Screenshots() {
             />
           </div>
         </div>
-        <div className="hidden md:block">
+        <div className="hidden md:block w-full">
           <Timeline data={data} />
         </div>
         <div className="md:hidden">

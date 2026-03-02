@@ -1,112 +1,52 @@
-import React, { useState, useEffect } from "react";
-import Snowfall from "react-snowfall";
+"use client";
+import Link from "next/link";
+import React from "react";
 
-const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
-  const originalAmount = parseFloat(amount);
-  const discountPercentage = 10;
-  const discountedAmount = (
-    originalAmount *
-    (1 - discountPercentage / 100)
-  ).toFixed(0);
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+const Hero = ({ amount, rating = 0, reviewCount = 0 }) => {
   const scrollToReviews = (e) => {
     if (e?.preventDefault) e.preventDefault();
     const el = document.getElementById("reviews");
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  function calculateTimeLeft() {
-    const difference = +new Date("2025-12-25") - +new Date();
-    let timeLeft = {};
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
-    } else {
-      timeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    }
-    return timeLeft;
-  }
-
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-slate-900 via-red-950/90 to-green-950">
-      {/* Snowfall Background */}
-      {/* <Snowfall
-        color="#fff"
-        snowflakeCount={300}
-        speed={[0.5, 2]}
-        wind={[-0.5, 1]}
-        style={{ position: "fixed", width: "100%", height: "100%", top: 0, left: 0, zIndex: 1 }}
-      /> */}
-
-      {/* Christmas Trees */}
-      <img
-        src="/images/sale/christmas-tree.png"
-        alt="Tree Left"
-        className="hidden lg:block absolute left-0 top-0 h-[400px] xl:h-[550px] opacity-30 z-10 pointer-events-none"
-      />
-      <img
-        src="/images/sale/christmas-tree.png"
-        alt="Tree Right"
-        className="hidden lg:block absolute right-0 bottom-0 h-[400px] xl:h-[400px] opacity-40 z-10 pointer-events-none"
-      />
-
-      {/* Main Container */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* LEFT SIDE - Content (65% on large, full on mobile) */}
-          <div className="lg:col-span-7 xl:col-span-8 text-center lg:text-left space-y-8">
-            {/* Verified Banner */}
-            <div className="flex flex-col justify-center lg:justify-start">
-              <div className="bg-red-600 md:hidden text-white font-bold py-2 px-4 rounded-t-xl w-full max-w-[400px] text-center animate-pulse">
-                🎄 Christmas Sale: {discountPercentage}% OFF! 🎅
+    <div className="flex flex-col justify-center items-center w-full">
+      <div className="flex w-full justify-center items-center mt-10 md:mt-0">
+        <div className="absolute hidden md:block w-full h-[500px] bg-gray-400 top-0 left-0 z-0"></div>
+        <div className="flex flex-col lg:flex-row justify-evenly items-start z-[10] w-full lg:w-[85%] mx-auto">
+          <div className="videocontainer flex flex-col justify-start items-start w-full lg:w-[60%]">
+            <div className="drop-shadow-xl flex items-center flex-col relative w-100 ">
+              <div className="flex items-center flex-row rounded-t-md  w-full bg-gray-900 min-h-[20px] py-1.5 px-3">
+                <div className="w-[12px] mr-2 h-[12px] rounded-full bg-red-500"></div>
+                <div className="w-[12px] mr-2 h-[12px] rounded-full bg-yellow-500"></div>
+                <div className="w-[12px] h-[12px] rounded-full bg-green-500"></div>
+                <div className="flex-1 place-delf-stretch"></div>
               </div>
-              <img
-                src="/images/lookers/banner.gif"
-                alt="Verified by Looker"
-                className="w-full max-w-md lg:max-w-2xl md:rounded-xl shadow-2xl border-4 border-white/20"
-                loading="lazy"
-              />
+              <div className=" relative h-full w-full rounded-b-sm">
+                <img
+                  loading="lazy"
+                  className=""
+                  src="/images/ai-copilot/banner-copilot.png"
+                  alt="best seller"
+                  width="700"
+                />
+                {/* <img className="absolute top-0 left-0 w-20 sm:w-24 md:w-32 lg:w-16"
+                                src="/static/images/power_bi_connector/bestseller.png" alt="additional"
+                                width="auto" height="auto" />  */}
+                {/* <video w="full" h="full" autoplay="true" muted="muted" loop="loop" playsinline="" alt="power bi">
+                                <source src="/static/images/power_bi_connector/powerbinew.mp4" type="video/mp4">
+                              </video> */}
+              </div>
             </div>
-            {/* Title & Subtitle */}
-            <div className="flex flex-col justify-start items-start mt-6 w-full text-white">
-              <h1 className="text-3xl xl:text-5xl font-semibold text-white ">
-                Odoo Looker Connector - First of it's kind
+            <div className="flex flex-col justify-start items-start mt-6 w-full">
+              <h1 className="text-3xl xl:text-4xl font-semibold text-black">
+                Odoo PowerBI Direct Connector
               </h1>
-              <h2 className="text-xl text-white mt-2 mb-4">
-                Odoo Connector Module to Fluid Connection with Google Looker
-                Studio{" "}
+              <h2 className="text-medium text-black mt-2 mb-4">
+                Integrate Odoo data with Microsoft Power BI{" "}
               </h2>
-              <div className="flex justify-center items-center py-1 text-lg">
+              <div className="flex justify-center items-center py-1">
                 <span className="font-semibold mr-4">Odoo Versions:</span>
-                <div className="flex gap-1 flex-wrap  ml-[6px] text-black">
-                  <p className="text-sm bg-[#EDF2F7] rounded-sm px-2 border font-medium">
-                    12.0
-                  </p>
-
-                  <p className="text-sm bg-[#EDF2F7] rounded-sm px-2 border font-medium">
-                    13.0
-                  </p>
-
-                  <p className="text-sm bg-[#EDF2F7] rounded-sm px-2 border font-medium">
-                    14.0
-                  </p>
-
-                  <p className="text-sm bg-[#EDF2F7] rounded-sm px-2 border font-medium">
-                    15.0
-                  </p>
-
+                <div className="flex gap-1 flex-wrap text-black ml-[6px]">
                   <p className="text-sm bg-[#EDF2F7] rounded-sm px-2 border font-medium">
                     16.0
                   </p>
@@ -122,10 +62,10 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
                   </p>
                 </div>
               </div>
-              <div className="flex py-1 text-lg">
+              <div className="flex py-1">
                 <span className="font-semibold pr-2">Validity: </span> Lifetime
               </div>
-              <div className="flex py-1 text-lg">
+              <div className="flex py-1">
                 <span className="font-semibold pr-2">Product Copyright: </span>{" "}
                 <a
                   className="underline font-gray-400 !font-light"
@@ -136,64 +76,18 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
               </div>
               <div className="flex py-1 ">
                 <span className="font-semibold pr-2">Disclaimer: </span>{" "}
-                <p className="pt-[2px] text-sm">
-                  The Odoo Looker Connector complies with the{" "}
-                  <a
-                    target="_blank"
-                    className="text-blue-500"
-                    href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes"
-                  >
-                    Google API Services User Data Policy
-                  </a>{" "}
-                  including its Limited Use requirements, ensuring the secure
-                  handling of user data.
-                </p>
+                <span>
+                  AI copilot for odoo helps you automate tasks and lets you read
+                  and approve CRUD operations in Odoo using natural language. It
+                  is powered by <a href="https://openai.com/">OpenAI's GPT-4</a>{" "}
+                  and can be easily integrated into your Odoo instance.
+                </span>
               </div>
-              <a
-                target=" _blank"
-                className="border mt-10 text-medium duration-300 border-[#0969da]
-               mx-auto flex items-center justify-center gap-3 w-[280px] rounded-md 
-                text-transparent px-5 py-2 bg-white/80 text-[#0969da]"
-                href="https://lookerstudio.google.com/u/0/datasources"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  version="1.1"
-                  baseProfile="tiny"
-                  id="Layer_1"
-                  width="30px"
-                  height="30px"
-                  viewBox="0 0 24 24"
-                  overflow="visible"
-                >
-                  <g transform="scale(0.889,0.889)">
-                    <path
-                      fill="#D2E3FC"
-                      d="M7.4,1.5c-1.2,0-2.1,0.9-2.1,2.1c0,0.4,0.1,0.8,0.4,1.2l0.9-0.9c0-0.1,0-0.2,0-0.3c0-0.5,0.4-0.9,0.9-0.9   s0.9,0.4,0.9,0.9c0,0.5-0.4,0.9-0.9,0.9c-0.1,0-0.2,0-0.3,0L6.3,5.3c1,0.6,2.3,0.4,2.9-0.6c0.6-1,0.4-2.3-0.6-2.9   C8.3,1.6,7.9,1.5,7.4,1.5z"
-                    />
-                    <path
-                      fill="#5E97F6"
-                      d="M6.6,7.6c0-0.7-0.2-1.4-0.6-2L4.8,6.8C4.9,7.1,5,7.3,5,7.6c0,0.5-0.2,0.9-0.5,1.2l0.6,1.6   C6.1,9.8,6.6,8.7,6.6,7.6z"
-                    />
-                    <path
-                      fill="#5E97F6"
-                      d="M3.4,9.3L3.4,9.3c-0.9,0-1.7-0.7-1.7-1.6c0-0.9,0.7-1.7,1.6-1.7c0.3,0,0.7,0.1,1,0.3l1.2-1.1   C4.8,4.6,4.1,4.3,3.3,4.3C1.5,4.3,0,5.8,0,7.6c0,1.8,1.4,3.3,3.3,3.3c0.2,0,0.5,0,0.7-0.1L3.4,9.3z"
-                    />
-                    <path
-                      fill="#4285F4"
-                      d="M7.5,10.6c-0.7,0-1.4,0.1-2.1,0.3l0.9,2.2C6.7,13.1,7.1,13,7.5,13c2.8,0,5,2.3,5,5c0,2.8-2.3,5-5,5   c-2.8,0-5-2.3-5-5c0-1.9,1-3.6,2.7-4.4l-0.9-2.2c-3.7,1.8-5.2,6.3-3.4,9.9c1.8,3.7,6.3,5.2,9.9,3.4c3.7-1.8,5.2-6.3,3.4-9.9   C12.9,12.3,10.3,10.6,7.5,10.6z"
-                    />
-                  </g>
-                </svg>
-                <span className="text-[#0969da]">Looker Data Sources</span>
-              </a>
             </div>
           </div>
-
-          {/* RIGHT SIDE - Sale Card (Compact & Beautiful) */}
-          <div className="lg:col-span-5 xl:col-span-4">
+          <div className="flex flex-col mt-6 md:mt-0 text-center justify-center items-center lg:justify-end lg:items-end w-full lg:w-[40%] relative">
             <div className="flex flex-col justify-center items-center">
-              <div className="p-8 z-[10] shadow-xl bg-white rounded-b-xl w-full max-w-[400px] drop-shadow-lg flex flex-col justify-center items-center gap-2 ">
+              <div className=" p-8 z-[10] shadow-xl  bg-white rounded-xl w-full max-w-[400px] drop-shadow-lg flex flex-col justify-center items-center gap-2">
                 <div className="flex justify-between w-full  border-b-2 border-gray-500 pb-4 gap-2 items-start">
                   <div className="flex items-start flex-col gap-1">
                     <div className="inline-flex items-center gap-2 rounded-xl bg-gray-100 px-3 py-2">
@@ -263,59 +157,29 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
                       </span>
 
                       <p className="text-sm text-gray-700">
-                        <span className="font-extrabold text-gray-900">68</span>{" "}
+                        <span className="font-extrabold text-gray-900">2</span>{" "}
                       </p>
                     </div>
                   </div>
                 </div>
-
                 <div className="flex flex-col w-full justify-center items-center">
                   <div className="w-full flex flex-col justify-start items-start gap-1 my-4">
-                    <a
-                      href="https://www.youtube.com/watch?v=q7y2wgLomTQ"
-                      className="gap-2 flex justify-center items-center"
-                    >
+                    <p className="gap-2 flex justify-center items-center">
                       <span>
                         <svg
                           stroke="currentColor"
                           fill="currentColor"
                           strokeWidth="0"
-                          t="1569683915274"
                           viewBox="0 0 1024 1024"
-                          version="1.1"
                           className="inline h-[20px] w-[20px]"
                           height="1em"
                           width="1em"
                           xmlns="http://www.w3.org/2000/svg"
                         >
-                          <defs></defs>
-                          <path d="M368 724H252V608c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v116H72c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h116v116c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V788h116c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z"></path>
-                          <path d="M912 302.3L784 376V224c0-35.3-28.7-64-64-64H128c-35.3 0-64 28.7-64 64v352h72V232h576v560H448v72h272c35.3 0 64-28.7 64-64V648l128 73.7c21.3 12.3 48-3.1 48-27.6V330c0-24.6-26.7-40-48-27.7zM888 625l-104-59.8V458.9L888 399v226z"></path>
-                          <path d="M320 360c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H208c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h112z"></path>
+                          <path d="M516 673c0 4.4 3.4 8 7.5 8h185c4.1 0 7.5-3.6 7.5-8v-48c0-4.4-3.4-8-7.5-8h-185c-4.1 0-7.5 3.6-7.5 8v48zm-194.9 6.1l192-161c3.8-3.2 3.8-9.1 0-12.3l-192-160.9A7.95 7.95 0 0 0 308 351v62.7c0 2.4 1 4.6 2.9 6.1L420.7 512l-109.8 92.2a8.1 8.1 0 0 0-2.9 6.1V673c0 6.8 7.9 10.5 13.1 6.1zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z"></path>
                         </svg>
-                      </span>
-                      {"  "}
-                      Live Demo
-                    </a>
-                    <p className="gap-2 flex justify-center items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20px"
-                        height="20px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M20.9588 9.9552C23.2624 6.58863 19.7818 2.22411 15.9871 3.72081C14.7912 -0.179234 9.2088 -0.179235 8.01298 3.72081C4.21822 2.22411 0.737623 6.58863 3.04122 9.9552C-0.494948 11.9889 0.747257 17.4314 4.81562 17.7294C4.20085 21.762 9.23046 24.1842 12 21.1892C14.7696 24.1842 19.7992 21.762 19.1844 17.7294C23.2528 17.4314 24.495 11.9889 20.9588 9.9552ZM9.88784 4.44062C10.442 2.24749 13.558 2.24749 14.1122 4.44062C14.3862 5.525 15.5746 6.0973 16.5933 5.63543C18.6534 4.70131 20.5962 7.1375 19.2271 8.93817C18.5501 9.8285 18.8436 11.1144 19.8399 11.6229C21.8547 12.6512 21.1613 15.6891 18.8999 15.7413C17.7817 15.7672 16.9593 16.7984 17.1829 17.8943C17.6352 20.1107 14.8278 21.4627 13.3769 19.7272C12.6595 18.8691 11.3405 18.8691 10.6231 19.7272C9.17228 21.4627 6.36486 20.1107 6.81712 17.8943C7.04074 16.7984 6.21835 15.7672 5.10019 15.7413C2.83873 15.6891 2.14535 12.6512 4.16018 11.6229C5.1564 11.1144 5.44991 9.8285 4.77295 8.93817C3.40382 7.1375 5.34661 4.70131 7.40679 5.63543C8.42544 6.0973 9.61383 5.525 9.88784 4.44062ZM16.7572 9.65322C17.118 9.23506 17.0714 8.6036 16.6533 8.24283C16.2351 7.88206 15.6036 7.92859 15.2429 8.34676L10.7627 13.5396L8.70025 11.5168C8.30595 11.13 7.67282 11.1362 7.2861 11.5305C6.89938 11.9248 6.90552 12.5579 7.29981 12.9446L10.1233 15.7139C10.3206 15.9074 10.5891 16.0106 10.8652 15.9991C11.1412 15.9876 11.4002 15.8624 11.5807 15.6532L16.7572 9.65322Z"
-                          fill="#000000"
-                        />
-                      </svg>
-                      <div className="flex justify-center items-center">
-                        <span className="text-sky-700 pr-1">Looker </span>{" "}
-                        Verified
-                      </div>
+                      </span>{" "}
+                      Full audit logs & governance
                     </p>
                     <p className="gap-2 flex justify-center items-center">
                       <svg
@@ -349,7 +213,7 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
                           strokeLinejoin="round"
                         />
                       </svg>{" "}
-                      One Time Installation
+                      Works on Odoo permissions only
                     </p>
                     <p className="gap-2 flex justify-center items-center">
                       <span>
@@ -366,7 +230,7 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
                           <path d="M516 673c0 4.4 3.4 8 7.5 8h185c4.1 0 7.5-3.6 7.5-8v-48c0-4.4-3.4-8-7.5-8h-185c-4.1 0-7.5 3.6-7.5 8v48zm-194.9 6.1l192-161c3.8-3.2 3.8-9.1 0-12.3l-192-160.9A7.95 7.95 0 0 0 308 351v62.7c0 2.4 1 4.6 2.9 6.1L420.7 512l-109.8 92.2a8.1 8.1 0 0 0-2.9 6.1V673c0 6.8 7.9 10.5 13.1 6.1zM880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 728H184V184h656v656z"></path>
                         </svg>
                       </span>{" "}
-                      Automatic & Scheduled Data Refresh
+                      Privacy of data
                     </p>
                     <p className="gap-2 flex justify-center items-center">
                       <span>
@@ -388,14 +252,16 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
                     </p>
                   </div>
                 </div>
-                <button
-                  onClick={showModal}
-                  className="text-gray-800 font-semibold w-[80%] text-center flex justify-center items-center border-indigo-700 border-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-indigo-200 disabled:cursor-wait disabled:opacity-50 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center "
-                >
-                  Try for Free
-                </button>
+                <div>
+                  <Link
+                    href={"/refund-policy"}
+                    className=" underline text-gray-600"
+                  >
+                    Return & Refund Policy
+                  </Link>
+                </div>
                 <a
-                  href="/payment/odoo-looker-connector/"
+                  href="/payment/ai-copilot-odoo/"
                   className="text-white w-[80%] text-center flex justify-center items-center bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-indigo-200 disabled:cursor-wait disabled:opacity-50 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center "
                 >
                   <svg
@@ -409,7 +275,6 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
                   </svg>
                   Buy now
                 </a>
-
                 <div className="flex  justify-center items-center">
                   <a
                     href="https://wa.me/916230927667"
@@ -482,8 +347,47 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
                   </div>
                 </div>
               </div>
+
+              {/* <div className="flex justify-center items-center flex-col mt-10 ">
+              <h2 className="text-3xl md:text-2xl text-black mb-5">
+                Watch Demo
+              </h2>
+              <div className="flex items-center flex-col sm:h-[285px] sm:w-[450px] lg:h-[200px] lg:w-[300px] relative border-sm">
+                <div className="border border-t-0 border-gray-200 flex justify-center items-center relative h-full w-full rounded-b-sm">
+                  <a
+                    href="https://www.youtube.com/watch?v=34x3d7EbQqo"
+                    className="relative flex justify-center items-center cursor-pointer yt-img"
+                  >
+                    <img
+                      className="absolute top-50 left-50"
+                      width="75px"
+                      height="75px"
+                      alt="youtube-button"
+                      src="\images\lookers\play.png"
+                    />
+                    <img
+                      className="img-responsive"
+                      alt="looker studio demo video"
+                      width="500px"
+                      height="450px"
+                      src="\images\powerbi\powerbi-yt-demo.png"
+                    />
+                  </a>
+                </div>
+              </div>
+            </div> */}
             </div>
           </div>
+        </div>
+      </div>
+      <div className="flex flex-wrap justify-center items-center gap-2 mt-6">
+        <div className="rounded-2xl mx-auto border border-gray-200 bg-white overflow-hidden shadow-sm">
+          <div className="px-4 py-2 border-b border-gray-100 text-xs text-gray-600"></div>
+          <img
+            className="w-[800px] lg:w-[1000px] h-auto"
+            src={`/images/ai-copilot/first-image.jpeg`}
+            alt={`Odoo AI Copilot Demo`}
+          />
         </div>
       </div>
     </div>

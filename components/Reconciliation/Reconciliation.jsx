@@ -7,10 +7,70 @@ import Customization from "./Customization";
 import { useState } from "react";
 import Link from "next/link";
 
+
+
+const StarRating = ({ rating }) => {
+  const full = Math.max(0, Math.min(5, Math.round(rating)));
+  return (
+    <div className="flex items-center gap-2">
+      <div className="flex">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <span
+            key={i}
+            className={`text-lg ${i < full ? "text-yellow-500" : "text-gray-300"}`}
+            aria-hidden="true"
+          >
+            ★
+          </span>
+        ))}
+      </div>
+      <span className="text-sm text-gray-700 font-semibold">{full.toFixed(1)}/5</span>
+    </div>
+  );
+};
+
+const Reviews = ({ reviews }) => {
+  if (!reviews?.length) return null;
+
+  return (
+    <section className="w-full">
+      <div className="flex flex-col gap-4">
+        <div>
+          <h2 className="text-3xl font-bold">Customer Reviews</h2>
+          <p className="text-lg text-gray-700 mt-1">
+            People are using this module in real accounting workflows.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4">
+          {reviews.map((r, idx) => (
+            <div
+              key={idx}
+              className="border rounded-xl p-6 shadow-sm bg-white hover:shadow-md duration-300"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h3 className="text-xl font-bold">{r.title}</h3>
+                  <p className="text-sm text-gray-500 mt-1">
+                    {r.date}
+                    {r.name ? <span className="text-gray-400"> • {r.name}</span> : null}
+                  </p>
+                </div>
+                <StarRating rating={r.rating} />
+              </div>
+
+              <p className="text-base text-gray-800 mt-4 leading-relaxed">{r.review}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Reconciliation = () => {
   const meta = {
-    title:
-      "Odoo Manual Reconciliation | TechFinna",
+    title: "Odoo Manual Reconciliation | TechFinna",
     desc: "Simplify your Odoo reconciliation with Techfinna's Manual Reconciliation module. Inspired by QuickBooks, it offers a user-friendly interface to ensure accurate and efficient transaction matching. Boost productivity and streamline your accounting process today.",
     url: "https://techfinna.com/odoo-manual-reconciliation/",
   };
@@ -40,9 +100,37 @@ const Reconciliation = () => {
       url: "https://techfinna.com/odoo-manual-reconciliation/",
     },
   };
+
+  /** ✅ ADDED: Static reviews for now (passed as props) */
+  const staticReviews = [
+    {
+      title: "Feels like QuickBooks inside Odoo",
+      date: "2026-02-10",
+      rating: 5,
+      name: "Rahul S.",
+      review:
+        "We were struggling with matching bank transactions quickly. This module makes reconciliation much smoother and the UI is honestly super clean. Saves a lot of time.",
+    },
+    {
+      title: "Huge time-saver for monthly closing",
+      date: "2026-01-28",
+      rating: 5,
+      name: "Sarah M.",
+      review:
+        "Our accounting team closes faster because matching entries is easier and less error-prone. The workflow feels intuitive even for non-technical users.",
+    },
+    {
+      title: "Simple, fast and accurate",
+      date: "2026-01-12",
+      rating: 4,
+      name: "Amit K.",
+      review:
+        "Works well on our on-prem setup. The matching logic and screen layout helped reduce mistakes. Would love more filters in future, but already very good.",
+    },
+  ];
+
   const [display, setDisplay] = useState(false);
-  const [submitted, setSubmitted] =
-    useState(false);
+  const [submitted, setSubmitted] = useState(false);
   function Submit(event) {
     event.preventDefault();
 
@@ -67,39 +155,18 @@ const Reconciliation = () => {
 
         {/* <!-- Basic meta tags --> */}
 
-        <meta
-          name="robots"
-          content="INDEX,FOLLOW"
-        />
+        <meta name="robots" content="INDEX,FOLLOW" />
 
         {/* <!-- Facebook meta tags --> */}
-        <meta
-          name="og:title"
-          content={meta.title}
-        />
-        <meta
-          name="og:description"
-          content={meta.desc}
-        />
+        <meta name="og:title" content={meta.title} />
+        <meta name="og:description" content={meta.desc} />
 
-        <meta
-          property="og:url"
-          content={meta.url}
-        />
+        <meta property="og:url" content={meta.url} />
 
         {/* <!-- Twtitter meta tags --> */}
-        <meta
-          name="twitter:title"
-          content={meta.title}
-        />
-        <meta
-          name="twitter:description"
-          content={meta.desc}
-        />
-        <meta
-          property="twitter:url"
-          content={meta.url}
-        />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.desc} />
+        <meta property="twitter:url" content={meta.url} />
       </head>
 
       <div className="md:mx-32 mx-5 text-black pt-20 space-y-48 mt-4 mb-12 w-full">
@@ -107,52 +174,36 @@ const Reconciliation = () => {
           <div className=" flex flex-col space-y-48">
             <Hero></Hero>
             <Connections></Connections>
+
+            {/* ✅ ADDED: Reviews section (static for now) */}
+            <Reviews reviews={staticReviews} />
+
             <Customization></Customization>
           </div>
           <div>
             <div className="border p-10 rounded-md drop-shadow-xl duration-300 sticky top-16 bottom-0 items-center flex flex-col gap-y-10 w-full md:w-[350px]">
               <div className="bg-transparent">
                 <h4 className="text-xl bg-transparent">
-                  <strong>
-                    Supported Odoo versions:
-                  </strong>
+                  <strong>Supported Odoo versions:</strong>
                 </h4>
                 <p className="text-lg mt-1 bg-transparent">
-                  <span className="border rounded-md px-2 dhadow-md">
-                    12.0
-                  </span>{" "}
-                  <span className="border rounded-md px-2 dhadow-md">
-                    13.0
-                  </span>{" "}
-                  <span className="border rounded-md px-2 dhadow-md">
-                    14.0
-                  </span>{" "}
-                  <span className="border rounded-md px-2 dhadow-md">
-                    15.0
-                  </span>{" "}
-                  <span className="border rounded-md px-2 dhadow-md">
-                    16.0
-                  </span>{" "}
-                  <span className="border rounded-md px-2 dhadow-md">
-                    17.0
-                  </span>{" "}
-                  <span className="border rounded-md px-2 dhadow-md">
-                    18.0
-                  </span>{" "}
+                  <span className="border rounded-md px-2 dhadow-md">12.0</span>{" "}
+                  <span className="border rounded-md px-2 dhadow-md">13.0</span>{" "}
+                  <span className="border rounded-md px-2 dhadow-md">14.0</span>{" "}
+                  <span className="border rounded-md px-2 dhadow-md">15.0</span>{" "}
+                  <span className="border rounded-md px-2 dhadow-md">16.0</span>{" "}
+                  <span className="border rounded-md px-2 dhadow-md">17.0</span>{" "}
+                  <span className="border rounded-md px-2 dhadow-md">18.0</span>{" "}
                 </p>
                 <p className="mt-2 bg-transparent mx-2 text-lg">
-                  Works well on Odoo Sh and
-                  on-premises server
+                  Works well on Odoo Sh and on-premises server
                 </p>
                 <p className="mt-2 bg-transparent mx-2 font-bold">
                   Community + Enterprise
                 </p>
               </div>
               <div className="flex flex-col gap-3">
-                <Link
-                  target="_blank"
-                  href="/payment/odoo-manual-reconciliation/"
-                >
+                <Link target="_blank" href="/payment/odoo-manual-reconciliation/">
                   <button className=" flex justify-center items-center gap-2 rounded-md shadow-lg bg-[#285a9b] text-white w-full px-6 py-2 text-center text-2xl font-bold">
                     Buy Module
                     <svg

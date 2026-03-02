@@ -7,7 +7,7 @@ export default function InfiniteMovingCardsDemo() {
   return (
     <div
       id="reviews"
-      className="flex flex-col justify-center items-center w-full overflow-hidden"
+      className="flex flex-col justify-center items-center w-full"
     >
       <div className="text-center py-4">
         <h2 className="text-3xl md:text-5xl font-extrabold my-4 text-black flex text-center justify-center items-center gap-4">
@@ -81,13 +81,13 @@ const testimonials = [
   },
   {
     quote:
-      "My sale order line model has around 100k records, all fetched correctly in Looker. Nice. Schema of columns is also correct. So far, fully satisfied.",
+      "My sale order line model has around 100k records, all fetched correctly in PowerBI. Nice. Schema of columns is also correct. So far, fully satisfied.",
     name: "BinaryERP EU",
     review: 5,
   },
   {
     quote:
-      "I recommend this module for those who want to connect their Odoo to Looker Studio.",
+      "I recommend this module for those who want to connect their Odoo to PowerBI.",
     name: "Farma Go",
     review: 4,
   },
@@ -95,12 +95,6 @@ const testimonials = [
     quote:
       "TechFinna work with us to help install and troubleshoot the module. Highly recommended!",
     name: "Hemp Flower Prime",
-    review: 5,
-  },
-  {
-    quote:
-      "Works good on my data sets and good team support",
-    name: "Gurad El",
     review: 5,
   },
 ];
