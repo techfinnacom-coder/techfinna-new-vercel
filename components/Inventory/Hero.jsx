@@ -89,7 +89,7 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
             <a
               target="_blank"
               className="border mt-10 duration-300 border-[#0969da] mx-auto flex items-center justify-center gap-3 w-[280px] rounded-md bg-clip-text text-transparent bg-gradient-to-l from-green-400 to-blue-800 hover:bg-gradient-to-r px-5 py-2"
-              href="https://apps.odoo.com/apps/modules/18.0/inventory_forecasting_techfinna"
+              href="https://apps.odoo.com/apps/modules/19.0/inventory_forecasting_techfinna"
             >
               <span>View on Odoo Apps</span>
             </a>
@@ -197,7 +197,7 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
                       </svg>
                     </span>
                     {"  "}
-                    Live Demo
+                    Watch Demo
                   </a>
 
                   <p className="gap-2 flex justify-center items-center">
@@ -271,6 +271,30 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
                     </span>{" "}
                     Excel Export &amp; Filters
                   </p>
+
+                  <a
+                    href="/guides/inventory-forecasting/"
+                    className="gap-2 flex justify-center items-center"
+                  >
+                    <span>
+                      <svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        strokeWidth="0"
+                        viewBox="0 0 1024 1024"
+                        className="inline h-[20px] w-[20px]"
+                        height="1em"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M368 724H252V608c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v116H72c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h116v116c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V788h116c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z"></path>
+                        <path d="M912 302.3L784 376V224c0-35.3-28.7-64-64-64H128c-35.3 0-64 28.7-64 64v352h72V232h576v560H448v72h272c35.3 0 64-28.7 64-64V648l128 73.7c21.3 12.3 48-3.1 48-27.6V330c0-24.6-26.7-40-48-27.7zM888 625l-104-59.8V458.9L888 399v226z"></path>
+                        <path d="M320 360c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H208c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h112z"></path>
+                      </svg>
+                    </span>
+                    {"  "}
+                    Read Detailed Guide
+                  </a>
                 </div>
                 <div>
                   <Link
@@ -281,13 +305,13 @@ const Hero = ({ amount, rating = 0, reviewCount = 0, showModal }) => {
                   </Link>
                 </div>
               </div>
-
               <a
-                href="https://www.youtube.com/watch?v=mc_yw7OG8Hc&t"
+                href="/contact/"
                 className="text-gray-800 font-semibold w-[80%] text-center flex justify-center items-center border-indigo-700 border-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-indigo-200 disabled:cursor-wait disabled:opacity-50 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center "
               >
-                Watch Demo
+                Book a Demo
               </a>
+            
               <a
                 href="/payment/odoo-inventory-forecasting/"
                 className="text-white w-[80%] text-center flex justify-center items-center bg-indigo-700 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-indigo-200 disabled:cursor-wait disabled:opacity-50 font-medium rounded-lg text-base px-5 py-2.5 text-center inline-flex items-center "

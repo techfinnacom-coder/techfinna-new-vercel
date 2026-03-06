@@ -56,7 +56,7 @@ export async function POST(request: Request) {
       })
       .sendMail({
         from: email,
-        to: ["vishalsingh173911@gmail.com"],
+        to: ["vishalsingh173911@gmail.com","info@techfinna.com"],
         subject: `New Review: ${product || "Product"} (${safeRating || "N/A"}/5)`,
         html,
       });

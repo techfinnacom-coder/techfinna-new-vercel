@@ -210,8 +210,7 @@ const [url, setUrl] = useState("");
               Reviews
             </h2>
             <p className="text-gray-700 text-lg mt-2">
-              Trusted by teams using Odoo → Tableau reporting in production.
-            </p>
+              Trusted by teams using Odoo → Your reviews are important to us. We regularly update our modules based on user feedback.            </p>
           </div>
         </div>
 

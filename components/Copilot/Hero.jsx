@@ -39,10 +39,10 @@ const Hero = ({ amount, rating = 0, reviewCount = 0 }) => {
             </div>
             <div className="flex flex-col justify-start items-start mt-6 w-full">
               <h1 className="text-3xl xl:text-4xl font-semibold text-black">
-                Odoo PowerBI Direct Connector
+                AI Copilot for Odoo
               </h1>
               <h2 className="text-medium text-black mt-2 mb-4">
-                Integrate Odoo data with Microsoft Power BI{" "}
+                Experience the future of business intelligence with our AI Copilot
               </h2>
               <div className="flex justify-center items-center py-1">
                 <span className="font-semibold mr-4">Odoo Versions:</span>

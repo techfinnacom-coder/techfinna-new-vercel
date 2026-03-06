@@ -19,41 +19,33 @@ const InventoryForecasting = () => {
   const amount = currentProduct[0]?.price ?? 0;
   const staticReviews = [
     {
-      title: "Helped us avoid stockouts",
+      title: "Helped my team to avoid the stockouts before hand",
       date: "2026-02-20",
       company: "NorthBridge Retail",
       name: "Kevin L.",
       rating: 5,
       review:
-        "We were constantly running out of fast moving items. After using this forecasting module, we started seeing patterns we ignored before. It’s not magic but it definitely improved our planning.",
+        "module helped us identify potential stockouts but the only issue we faced was understanding the buffer value. Although, Chandan & Nikhil helped me out. Just a suggestion, to add some more documentation around that.",
     },
     {
-      title: "Finally some clarity in inventory",
+      title: "good module for RFQ creation",
       date: "2026-02-19",
       company: "MetroSupply Co.",
       name: "Anita P.",
       rating: 5,
       review:
-        "Earlier we just reordered based on guess work. Now we actually look at projected demand inside Odoo. It made our purchase planning less stressful.",
+        "rfq creation was very easy after using this module.",
     },
     {
-      title: "Seasonal data makes more sense now",
-      date: "2026-02-18",
+      title: "Forecasting works well and RFQ creation is a time saver",
+      date: "2025-09-18",
       company: "EverGlow Distributors",
       name: "Rohit S.",
       rating: 4,
       review:
-        "We deal with seasonal products and forecasting was always messy. This helped us see trends properly. Took some time to understand but worth it.",
+        "The module works good overall, just the learning took me some time to understand. If in future versions you can add some more tooltips or documentation around the forecasting logic, that would be great.",
     },
-    {
-      title: "Reduced overstock slowly",
-      date: "2026-02-17",
-      company: "GreenAxis Wholesale",
-      name: "Monica L.",
-      rating: 5,
-      review:
-        "We used to over-order just to be safe. After using forecasts for 2 months, we reduced excess stock noticeably. Not perfect but better than before.",
-    },
+
 
     {
       title: "Cleaner demand view",
