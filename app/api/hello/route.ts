@@ -1,0 +1,11 @@
+import { NextResponse } from "next/server";
+
+export const runtime = "nodejs";
+
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    message: "Hello from Vercel API route ✅",
+    timestamp: new Date().toISOString(),
+  });
+}

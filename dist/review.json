@@ -1,0 +1,31 @@
+[
+    {
+      "id": "1",
+      "image": "clients/askai.png",
+      "name": "Abhishek",
+      "position": "Founder, AskAI",
+      "description": "Techfinna transformed our business with their exceptional website development. Their team's attention to detail and innovative solutions exceeded our expectations."
+    },
+    {
+      "id": "2",
+      "image": "clients/designlab.jpeg",
+      "name": "RK",
+      "position": "Designer, Design Drift Labs",
+      "description": "We entrusted Techfinna with our project, and they delivered beyond our hopes. Their commitment to excellence and prompt support make them a top choice."
+    },
+    {
+      "id": "3",
+      "image": "clients/billsfly.jpeg",
+      "name": "Ayush",
+      "position": "Founder, BillsFly",
+      "description": "Working with Techfinna was a pleasure. Their dedication to understanding our needs and delivering a tailored solution was commendable."
+    },
+    {
+      "id": "4",
+      "image": "clients/client.png",
+      "name": "Jane",
+      "position": "Client",
+      "description": "Techfinna's website development skills are unmatched. They captured our brand essence perfectly, creating a site that's both user-friendly and visually stunning. Highly recommended!"
+    }
+  ]
+  
