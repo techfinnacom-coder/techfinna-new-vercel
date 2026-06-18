@@ -128,7 +128,7 @@ const SearchProduct = () => {
           </p>
         </motion.header>
  
-        <div className="md:hidden mb-6">
+        <div className="lg:hidden mb-6">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <svg
@@ -161,7 +161,7 @@ const SearchProduct = () => {
         </div>
  
         <div className="flex gap-8">
-          <aside className="hidden md:block w-80 flex-shrink-0">
+          <aside className="hidden lg:block w-72 xl:w-80 flex-shrink-0">
             <div className="sticky top-8 space-y-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

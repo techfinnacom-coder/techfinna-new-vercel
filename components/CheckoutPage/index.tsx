@@ -38,82 +38,83 @@ const CheckoutPage = ({
   ) => {
     event.preventDefault();
     setLoading(true);
+    setErrorMessage(undefined);
 
-    await fetch(
-      "https://paymentintent-4ghlaskdba-uc.a.run.app",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: convertToSubcurrency(amount),
-          currency: "usd",
-          productId: "prod_QPhnXSpPf4uUka",
-          prodName: prodName,
-          prodVersion: version,
-          name: name,
-          email: email,
-          companyName: companyName,
-        }),
+    try {
+      if (!stripe || !elements) {
+        return;
       }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        var secretKey = data.clientSecret;
-        setClientSecret(data.clientSecret);
-        console.log(
-          data,
-          "response after stripe intent"
-        );
 
-        async function sendPayment(
-          secretKey: any
-        ) {
-          if (!stripe || !elements) {
-            return;
-          }
+      const { error: submitError } =
+        await elements.submit();
 
-          const { error: submitError } =
-            await elements.submit();
+      if (submitError) {
+        setErrorMessage(submitError.message);
+        return;
+      }
 
-          if (submitError) {
-            setErrorMessage(submitError.message);
-            setLoading(false);
-            return;
-          }
-
-          const { error } =
-            await stripe.confirmPayment({
-              elements,
-              clientSecret: secretKey,
-              confirmParams: {
-                payment_method_data: {
-                  billing_details: {
-                    name: name,
-                    email: email,
-                  },
-                },
-                return_url: `https://techfinna.com/payment-success/`,
-              },
-            });
-          console.log(
-            error,
-            "error checking after payment"
-          );
-          if (error) {
-            // This point is only reached if there's an immediate error when
-            // confirming the payment. Show the error to your customer (for example, payment details incomplete)
-            setErrorMessage(error.message);
-          } else {
-            // The payment UI automatically closes with a success animation.
-            // Your customer is redirected to your `return_url`.
-          }
+      const res = await fetch(
+        "https://paymentintent-4ghlaskdba-uc.a.run.app",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            amount: convertToSubcurrency(amount),
+            currency: "usd",
+            productId: "prod_QPhnXSpPf4uUka",
+            prodName: prodName,
+            prodVersion: version,
+            name: name,
+            email: email,
+            companyName: companyName,
+          }),
         }
-        sendPayment(secretKey);
+      );
+
+      if (!res.ok) {
+        throw new Error(
+          `Payment initialization failed (${res.status}). Please try again.`
+        );
+      }
+
+      const data = await res.json();
+
+      if (!data.clientSecret) {
+        throw new Error(
+          "Unable to initialize payment. Please try again."
+        );
+      }
+
+      const secretKey = data.clientSecret;
+      setClientSecret(secretKey);
+
+      const { error } = await stripe.confirmPayment({
+        elements,
+        clientSecret: secretKey,
+        confirmParams: {
+          payment_method_data: {
+            billing_details: {
+              name: name,
+              email: email,
+            },
+          },
+          return_url: `https://techfinna.com/payment-success/`,
+        },
       });
 
-    setLoading(true);
+      if (error) {
+        setErrorMessage(error.message);
+      }
+    } catch (err: any) {
+      setErrorMessage(
+        err?.message ||
+          "An unexpected error occurred. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!stripe || !elements) {
@@ -245,7 +246,9 @@ const CheckoutPage = ({
         {stripe && <PaymentElement />}
 
         {errorMessage && (
-          <div>{errorMessage}</div>
+          <div className="mt-2 text-red-600 text-sm font-medium">
+            {errorMessage}
+          </div>
         )}
 
         <div className="flex flex-col gap-2 justify-center items-center">

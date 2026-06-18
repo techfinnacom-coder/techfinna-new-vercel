@@ -6,6 +6,7 @@ import Compare from "./Compare"
 import Reviews from "../Reviews"
 import PowerbiPricing from "../PowerBI/PowerbiPricing";
 import products from "../../data/products.json";
+import DemoVideo from "../AdvanceBI/DemoVideo";
 
 const AdvanceBI = () => {
    const currentProduct = products.filter(
@@ -152,6 +153,11 @@ const AdvanceBI = () => {
         <div className="flex flex-col ">
           <Hero amount={amount}      rating={avgRating}
             reviewCount={reviewCount}></Hero>
+            <DemoVideo youtubeLink={'https://youtu.be/hbz6K1tVou0?si=kIN-cN1G5mCqLq9G'} 
+            bannerImage={`/images/apbi/apiThumb.png`}
+            title={`Power BI with Automatic Schedule Refresh and SQL query feature`}
+            duration={`4:29`}
+          ></DemoVideo>
           <Compare></Compare>
           <Specifications></Specifications>
            <div id="reviews" className="scroll-mt-24">
